@@ -1,0 +1,37 @@
+Endpoint list
+
+Login: https://api.remanga.org/api/users/login/
+Payload: { user: String, password: String }
+Response: {
+    "msg": String,
+    "content": {
+        "id": Int,
+        "username": String,
+        "badges": Array,
+        "is_superuser": bool,
+        "is_staff": bool,
+        "balance": String,
+        "ticket_balance": Int,
+        "avatar": String?,
+        "email": String,
+        "sex": Int,
+        "publishers": Array,
+        "vk_not": bool,
+        "yaoi": Int,
+        "adult": bool,
+        "chapters_read": Int,
+        "vk_id": String,
+        "google_id": String,
+        "yandex_id": String?,
+        "mail_id": String?,
+        "is_two_factor_auth": bool,
+        "tagline": null?,
+        "preference": Int,
+        "count_views": Int,
+        "count_votes": Int,
+        "count_comments": Int,
+        "access_token": String,
+        "two_factor_auth": bool
+    },
+    "props": {}
+}

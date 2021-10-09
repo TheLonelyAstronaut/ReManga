@@ -1,0 +1,79 @@
+{
+	"info": {
+		"_postman_id": "4e05e406-bede-4edb-9350-b4245a885746",
+		"name": "ReManga API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "https://api.remanga.org/api/titles/?ordering=-votes&count=30",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.remanga.org/api/titles/?ordering=-votes&count=30",
+					"protocol": "https",
+					"host": [
+						"api",
+						"remanga",
+						"org"
+					],
+					"path": [
+						"api",
+						"titles",
+						""
+					],
+					"query": [
+						{
+							"key": "ordering",
+							"value": "-votes"
+						},
+						{
+							"key": "count",
+							"value": "30"
+						}
+					]
+				},
+				"description": "Подборка манги вверху сайта на главной странице"
+			},
+			"response": []
+		},
+		{
+			"name": "https://api.remanga.org/api/users/login/",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user\": \"孤独な宇宙飛行士\",\n    \"password\": \"LoginHorizon\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.remanga.org/api/users/login/",
+					"protocol": "https",
+					"host": [
+						"api",
+						"remanga",
+						"org"
+					],
+					"path": [
+						"api",
+						"users",
+						"login",
+						""
+					]
+				},
+				"description": "Логин"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
