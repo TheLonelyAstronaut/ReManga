@@ -1,3 +1,6 @@
+import 'package:remanga/core/model/title/preview/title_preview.dart';
+import 'package:rxdart/rxdart.dart';
+
 abstract class TitleRepository {
-  Future<String> getTopThirty();
+  Stream<List<TitlePreview>> getTopThirty();
 }

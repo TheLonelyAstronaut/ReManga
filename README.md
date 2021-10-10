@@ -9,11 +9,10 @@ Mobile app for [ReManga project](https://remanga.org), adapted for mobile design
 - RxDart
 - BLoC
 - Codegen
-- Rx BLoC bindings (rx_bloc)
 - DI (injectable)
 - SQFLite
 - Cached Image
-- http, graphql_flutter (?)
+- Dio, retrofit_dart
 
 ## Commands
     //Get dependencies

@@ -25,20 +25,26 @@ dependencies:
     sdk: flutter
   gap: ^1.2.0
   provider: 5.0.0
-  injectable: 1.4.1
+  injectable: 1.5.0
   get_it: 7.1.4
   cupertino_icons: ^1.0.2
   cached_network_image: ^3.0.0
   sqflite: ^2.0.0+3
-  rx_bloc: ^3.0.0
   http: ^0.13.3
   fluro: ^2.0.3
   font_awesome_flutter: ^9.1.0
+  rxdart: ^0.27.2
+  json_annotation: ^4.1.0
+  floor: ^1.2.0
+  retrofit: 2.0.1
+  dio: ^4.0.0
 
 dev_dependencies:
-  injectable_generator: 1.4.1
-  build_runner: 2.0.4
-  rx_bloc_generator: any
+  injectable_generator: 1.5.2
+  floor_generator: ^1.2.0
+  retrofit_generator: 2.0.1+2
+  build_runner: 2.1.4
+  json_serializable: ^5.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

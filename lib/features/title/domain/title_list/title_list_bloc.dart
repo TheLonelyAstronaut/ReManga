@@ -1,40 +1,27 @@
 import 'package:injectable/injectable.dart';
+import 'package:remanga/core/domain/base_bloc.dart';
+import 'package:remanga/core/model/title/preview/title_preview.dart';
 import 'package:remanga/features/title/data/title_repository.dart';
-import 'package:rx_bloc/rx_bloc.dart';
 import 'package:rxdart/rxdart.dart';
 
-part 'title_list_bloc.rxb.g.dart';
-
-abstract class TitleListBlocEvents {
-  /// TODO: Document the event
-  void getTopThirty();
-}
-
-abstract class TitleListBlocStates {
-  Stream<String> get titles;
-  Stream<bool> get isLoading;
-  Stream<String> get errors;
-}
-
 @injectable
-@RxBloc()
-class TitleListBloc extends $TitleListBloc {
-  final TitleRepository titleRepository;
+class TitleListBloc extends BaseBloc {
+  final _$getTopThirtyEvent = PublishSubject<void>();
 
-  TitleListBloc(this.titleRepository);
+  final TitleRepository _titleRepository;
 
-  @override
-  Stream<String> _mapToErrorsState() =>
-      errorState.map((error) => error.toString());
+  late Stream<List<TitlePreview>> titles;
 
-  @override
-  Stream<bool> _mapToIsLoadingState() => loadingState;
-
-  @override
-  Stream<String> _mapToTitlesState() {
-    return Rx.merge<Result<String>>([
-      _$getTopThirtyEvent
-          .flatMap((_) => titleRepository.getTopThirty().asResultStream())
-    ]).setResultStateHandler(this).whereSuccess();
+  TitleListBloc(this._titleRepository): super() {
+    titles = _$getTopThirtyEvent
+        .doOnEach((_) => switchLoadingState())
+        .flatMap((_) =>
+          _titleRepository
+              .getTopThirty()
+              .doOnDone(switchLoadingState)
+        )
+        .asBroadcastStream();
   }
+
+  void getTopThirty() => _$getTopThirtyEvent.add(null);
 }
