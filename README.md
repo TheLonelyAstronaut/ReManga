@@ -1,6 +1,6 @@
 # ReManga
 
-Mobile app for [ReManga project](https://remanga.org), adapted for mobile designs and best practices. For now using fake data.
+Mobile app for [ReManga project](https://remanga.org), adapted for mobile designs and best practices.
 
 ## Key Technologies Stack
 
