@@ -17,4 +17,8 @@ abstract class BaseBloc {
   void switchLoadingState() {
     _$isLoading.add(!_$isLoading.value);
   }
+
+  void dispose() {
+    _$isLoading.close();
+  }
 }

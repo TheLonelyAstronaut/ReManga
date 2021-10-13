@@ -4,26 +4,26 @@ import 'package:remanga/core/di/dependency_injection_root.dart';
 import 'package:remanga/core/model/title/preview/title_preview.dart';
 import 'package:remanga/core/presentation/navigation/app_navigator.dart';
 import 'package:remanga/core/presentation/navigation/route_names.dart';
-import 'package:remanga/features/title/domain/title_list/title_list_bloc.dart';
+import 'package:remanga/features/home/domain/top_thirty_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return HomeScreenState(
-        instance.get<AppNavigator>(), instance.get<TitleListBloc>());
+        instance.get<AppNavigator>(), instance.get<TopThirtyBloc>());
   }
 }
 
 class HomeScreenState extends State<HomeScreen> {
   final AppNavigator navigator;
-  final TitleListBloc titleListBloc;
+  final TopThirtyBloc topThirtyBloc;
 
-  HomeScreenState(this.navigator, this.titleListBloc) {
-    titleListBloc.titles.listen((event) {
+  HomeScreenState(this.navigator, this.topThirtyBloc) {
+    topThirtyBloc.titles.listen((event) {
       print(event);
     });
 
-    titleListBloc.isLoading.listen((event) {
+    topThirtyBloc.isLoading.listen((event) {
       print(event);
     });
   }
@@ -36,7 +36,17 @@ class HomeScreenState extends State<HomeScreen> {
   }
 
   void updateData() {
-    titleListBloc.getTopThirty();
+    topThirtyBloc.getTopThirty();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    topThirtyBloc.dispose();
+  }
+
+  void handleTitlePress(TitlePreview title) {
+    navigator.openModal(context, RouteNames.title, arguments: title);
   }
 
   @override
@@ -50,14 +60,11 @@ class HomeScreenState extends State<HomeScreen> {
                 'Home',
               ),
               TextButton(
-                  onPressed: () => navigator.openModal(context, RouteNames.title),
-                  child: Text('Open title')),
-              TextButton(
-                  onPressed: titleListBloc.getTopThirty,
+                  onPressed: topThirtyBloc.getTopThirty,
                   child: Text('Get top 30')),
               Expanded(
                   child: StreamBuilder(
-                      stream: titleListBloc.titles,
+                      stream: topThirtyBloc.titles,
                       builder: (BuildContext context, AsyncSnapshot<List<TitlePreview>> snapshot) {
                         if (snapshot.hasError) {
                           return Text('Error: ${snapshot.error}');
@@ -72,13 +79,19 @@ class HomeScreenState extends State<HomeScreen> {
                                 itemBuilder: (context, int index) {
                                   var data = snapshot.data![index];
 
-                                  return Row(
-                                    children: [
-                                      CachedNetworkImage(
-                                          imageUrl: "https://api.remanga.org" + data.img.low
+                                  return GestureDetector(
+                                    onTap: () => handleTitlePress(data),
+                                    child: Container(
+                                      color: Colors.transparent,
+                                      child: Row(
+                                        children: [
+                                          CachedNetworkImage(
+                                              imageUrl: "https://api.remanga.org" + data.img.low
+                                          ),
+                                          Flexible(child: Text(data.rusName))
+                                        ],
                                       ),
-                                      Flexible(child: Text(data.rusName))
-                                    ],
+                                    ),
                                   );
                                 }
                             );

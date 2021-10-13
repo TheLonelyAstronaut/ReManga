@@ -55,7 +55,7 @@ class GlobalRoutePageManagerImpl extends ChangeNotifier
           child: LoginScreen(),
           key: ValueKey('Login'),
           name: '/login'));
-    } else if (configuration.isReader) {
+    } /*else if (configuration.isReader) {
       _pages.add(SlideFromBottomPage(
           child: ReaderScreen(),
           key: ValueKey('Reader'),
@@ -64,10 +64,10 @@ class GlobalRoutePageManagerImpl extends ChangeNotifier
       int _key = _pages.length;
 
       _pages.add(SlideFromBottomPage(
-          child: TitleScreen(),
+          child: TitleScreen(TitleP),
           key: ValueKey('TitleDescription' + _key.toString()),
           name: '/titleDescription'));
-    }
+    }*/
 
     notifyListeners();
   }

@@ -27,10 +27,13 @@ import '../../app/presentation/navigation_deprecated/main_navigator/router_deleg
     as _i12;
 import '../../app/presentation/navigation_deprecated/main_navigator/router_delegate/main_router_delegate_impl.dart'
     as _i13;
-import '../../features/title/data/title_repository.dart' as _i15;
-import '../../features/title/data/title_repository_impl.dart' as _i16;
-import '../../features/title/domain/title_list/title_list_bloc.dart' as _i17;
-import '../data/api/api_service.dart' as _i14;
+import '../../features/home/domain/top_thirty_bloc.dart' as _i17;
+import '../../features/reader/domain/chapter_info_bloc.dart' as _i18;
+import '../../features/title/data/api/title_service.dart' as _i14;
+import '../../features/title/data/repository/title_repository.dart' as _i15;
+import '../../features/title/data/repository/title_repository_impl.dart'
+    as _i16;
+import '../../features/title/domain/title_info_bloc.dart' as _i19;
 import '../data/api/http_client.dart'
     as _i9; // ignore_for_file: unnecessary_lambdas
 
@@ -50,10 +53,14 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       () => _i11.MainRoutePageManagerImpl());
   gh.lazySingleton<_i12.MainRouterDelegate>(
       () => _i13.MainRouterDelegateImpl(get<_i10.MainRoutePageManager>()));
-  gh.singleton<_i14.APIService>(_i14.APIService(get<_i9.HttpClient>()));
+  gh.singleton<_i14.TitleService>(_i14.TitleService(get<_i9.HttpClient>()));
   gh.singleton<_i15.TitleRepository>(
-      _i16.TitleRepositoryImpl(get<_i14.APIService>()));
-  gh.factory<_i17.TitleListBloc>(
-      () => _i17.TitleListBloc(get<_i15.TitleRepository>()));
+      _i16.TitleRepositoryImpl(get<_i14.TitleService>()));
+  gh.factory<_i17.TopThirtyBloc>(
+      () => _i17.TopThirtyBloc(get<_i15.TitleRepository>()));
+  gh.factory<_i18.ChapterInfoBloc>(
+      () => _i18.ChapterInfoBloc(get<_i15.TitleRepository>()));
+  gh.factory<_i19.TitleInfoBloc>(
+      () => _i19.TitleInfoBloc(get<_i15.TitleRepository>()));
   return get;
 }
