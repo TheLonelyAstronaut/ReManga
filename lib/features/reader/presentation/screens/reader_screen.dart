@@ -73,32 +73,36 @@ class ReaderScreenState extends State<ReaderScreen> {
                         default:
                           var data = snapshot.data!;
 
-                          return ListView.builder(
-                              itemCount: data.pages.length,
-                              restorationId: 'Bruh',
-                              // Ultra unperformance usage bruh, but one image
-                              // could be 7000 px height and we need to pre-render
-                              // next or last to avoid seeing loading indicator
-                              cacheExtent: 10000,
-                              // To remove glitches between image via scrolling
-                              addRepaintBoundaries: false,
-                              // iPhone 12 - still 60 FPS
-                              itemBuilder: (context, int index) {
-                                var image = data.pages[index];
-                                var size = ImageSizeHelper(
-                                    image.height.toDouble(),
-                                    image.width.toDouble()
-                                );
+                          return InteractiveViewer(
+                            minScale: 1,
+                            maxScale: 4,
+                            child: ListView.builder(
+                                itemCount: data.pages.length,
+                                restorationId: 'Bruh',
+                                // Ultra unperformance usage bruh, but one image
+                                // could be 7000 px height and we need to pre-render
+                                // next or last to avoid seeing loading indicator
+                                cacheExtent: 10000,
+                                // To remove glitches between image via scrolling
+                                addRepaintBoundaries: false,
+                                // iPhone 12 - still 60 FPS
+                                itemBuilder: (context, int index) {
+                                  var image = data.pages[index];
+                                  var size = ImageSizeHelper(
+                                      image.height.toDouble(),
+                                      image.width.toDouble()
+                                  );
 
-                                return CachedNetworkImage(
+                                  return CachedNetworkImage(
                                     imageUrl: image.link,
                                     height: size.height,
                                     width: size.width,
                                     progressIndicatorBuilder: (context, url, progress) {
                                       return CircularProgressIndicator.adaptive();
                                     },
-                                );
-                              }
+                                  );
+                                }
+                            ),
                           );
                       }
                     }

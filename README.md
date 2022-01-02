@@ -23,3 +23,19 @@ Mobile app for [ReManga project](https://remanga.org), adapted for mobile design
     
     //Run app
     flutter run
+
+## Patching flutter
+Cause of strange default behavior of zoomable list, you need to patch lib/src/gestures/scale.dart:
+
+    void _advanceStateMachine(bool shouldStartIfAccepted, PointerDeviceKind pointerDeviceKind) {
+      if (_state == _ScaleState.ready)
+        _state = _ScaleState.possible;
+
+    // add this
+    if (_pointerQueue.length == 2) {
+      resolve(GestureDisposition.accepted);
+    }
+
+    if (_state == _ScaleState.possible) {
+    ...
+
